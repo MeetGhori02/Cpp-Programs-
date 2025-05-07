@@ -1,3 +1,4 @@
+//THIS CODE IS WRITTEN BY 24CE034-MEET_GHORI
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -83,10 +84,10 @@ int main()
 
     for (int i = 0; i < n; i++)
     {
-        delete S[i]; // Free the allocated memory
+        delete S[i]; 
     }
 
-    S.clear(); // Clear the vector
+    S.clear(); 
 
     cout << "Memory cleared" << endl;
 
