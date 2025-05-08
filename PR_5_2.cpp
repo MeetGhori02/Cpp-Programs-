@@ -1,48 +1,67 @@
-
-
 #include <iostream>
-#include <map>
+#include <vector>
 
 using namespace std;
 
-class complex
+class Complex
 {
 public:
     double real, imaginary;
-    complex(double r = 0, double i = 0) : real(r), imaginary(i) {}
 
-    complex operator+(complex &c)
+    Complex(double r = 0, double i = 0) : real(r), imaginary(i) {}
+
+    Complex operator+(const Complex &c) const
     {
-        return ((real + c.real, imaginary + c.imaginary));
+        return Complex(real + c.real, imaginary + c.imaginary);
     }
 
-    complex operator-(complex &c)
+    Complex operator-(const Complex &c) const
     {
-        return ((real - c.real, imaginary - c.imaginary));
+        return Complex(real - c.real, imaginary - c.imaginary);
+    }
+
+    friend istream &operator>>(istream &in, Complex &c)
+    {
+        cout << "Enter real and imaginary part: ";
+        in >> c.real >> c.imaginary;
+        return in;
+    }
+
+    friend ostream &operator<<(ostream &out, const Complex &c)
+    {
+        out << c.real << " + " << c.imaginary << "i";
+        return out;
     }
 };
 
 int main()
 {
-
-    complex c1, c2;
-    cout << "How many complex numbers you want to add : ";
     int n;
-
+    cout << "How many complex numbers do you want to add: ";
     cin >> n;
-    complex c[n];
-    cout << "Enter complex numbers : " << endl;
+
+    vector<Complex> numbers(n);
+    cout << "Enter complex numbers: " << endl;
     for (int i = 0; i < n; i++)
     {
-        cout << "Enter real and imaginary part : ";
-        cin >> c[i].real >> c[i].imaginary;
+        cin >> numbers[i];
     }
 
-    complex sum(0, 0);
-    for (int i = 0; i < n; i++)
+    Complex sum(0, 0);
+    for (const auto &num : numbers)
     {
-        sum = sum + c[i];
+        sum = sum + num;
     }
-    cout << "Sum of complex numbers : " << sum.real << " + " << sum.imaginary << "i" << endl;
-    cout << "Subtraction of complex numbers : " << sum.real << " - " << sum.imaginary << "i" << endl;
+
+    cout << "Sum of complex numbers: " << sum << endl;
+
+    Complex difference = numbers[0];
+    for (int i = 1; i < n; i++)
+    {
+        difference = difference - numbers[i];
+    }
+
+    cout << "Difference of complex numbers: " << difference << endl;
+
+    return 0;
 }
